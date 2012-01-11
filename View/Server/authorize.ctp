@@ -1,10 +1,12 @@
+<form method="post" action="#">
 <?php
-	echo $this->Form->create();
-	foreach ($authParams as $k => $v) {
-		echo '<input type="hidden" name="' . $k . '" value="' . $v . '" />';
-	}
-	echo $this->Form->input('grant', array(
-		'type' => 'checkbox',
-		'label' => __('Do you authorize the app to do its thing?')));
-	echo $this->Form->end(__('Submit', true));
-?>
+	foreach ($authParams  as $key => $value) : ?>
+		<input type="hidden" name="<?=filter_var($key, FILTER_SANITIZE_FULL_SPECIAL_CHARS)?>" value="<?=filter_var($value, FILTER_SANITIZE_FULL_SPECIAL_CHARS)?>" />
+    <?php endforeach; ?>
+      Do you authorize the app to do its thing?
+      <p>
+        <input type="submit" name="accept" value="Yep" />
+        <input type="submit" name="accept" value="Nope" />
+      </p>
+    </form>
+

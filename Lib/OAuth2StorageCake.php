@@ -1,9 +1,9 @@
 <?php
-$basePath = CakePlugin::path('Oauth2') . 'Vendor' . 'oauth2-php' . DS . 'lib'. DS;
-require_once($basePath . 'Oauth2.php')
-require_once($basePath . 'IOAuth2Storage.php')
-require_once($basePath . 'IOAuth2GrantCode.php')
-require_once($basePath . 'IOAuth2RefreshTokens.php')
+$basePath = CakePlugin::path('Oauth2') . 'Vendor' . DS .  'oauth2-php' . DS . 'lib'. DS;
+require_once($basePath . 'Oauth2.php');
+require_once($basePath . 'IOAuth2Storage.php');
+require_once($basePath . 'IOAuth2GrantCode.php');
+require_once($basePath . 'IOAuth2RefreshTokens.php');
 
 /**
  * CakePHP DBAL storage engine for the OAuth2 Library.
@@ -23,14 +23,14 @@ class OAuth2StorageCake implements IOAuth2GrantCode, IOAuth2RefreshTokens {
 
 		$this->options = Set::merge($defaults, $options);
 
-		$this->SALT = Configure::read('Salt');
+		$this->salt = Configure::read('Oauth2.Salt');
 	}
 
 /**
  * Loads the required models on the fly
  */
 	public function __get($name) {
-		if (in_array($name, array_keys($this->options['models'])) {
+		if (in_array($name, array_keys($this->options['models']))) {
 			return ClassRegistry::init($this->options['models'][$name]);
 		}
 	}
@@ -61,7 +61,7 @@ class OAuth2StorageCake implements IOAuth2GrantCode, IOAuth2RefreshTokens {
 			$this->Client->alias => array(
 				'id' => $client_id,
 				'client_secret' > $client_secret,
-				'redirect_uri' => $redirect_uri));
+				'redirect_uri' => $redirect_uri)));
 	}
 
 /**
@@ -154,8 +154,8 @@ class OAuth2StorageCake implements IOAuth2GrantCode, IOAuth2RefreshTokens {
  * Implements IOAuth2Storage::setAuthCode().
  */
 	public function setAuthCode($code, $client_id, $user_id, $redirect_uri, $expires, $scope = NULL) {
-		$this->AuthCode->save(
-			$this->AuthCode->alias => compact('code', 'client_id', 'user_id', 'redirect_uri', 'expires', 'scope');
+		$this->AuthCode->save(array(
+			$this->AuthCode->alias => compact('code', 'client_id', 'user_id', 'redirect_uri', 'expires', 'scope')));
 	}
 
 /**
@@ -181,8 +181,9 @@ class OAuth2StorageCake implements IOAuth2GrantCode, IOAuth2RefreshTokens {
 			$model = 'RefreshToken';
 		}
 
-		$this->{$model}->save(
-			$this->{$model}->alias => compact('token', 'client_id', 'user_id', 'expires', 'scope');
+		$this->{$model}->save(array(
+			$this->{$model}->alias => compact('token', 'client_id', 'user_id', 'expires',
+				'scope')));
 	}
 
 /**
@@ -213,7 +214,7 @@ class OAuth2StorageCake implements IOAuth2GrantCode, IOAuth2RefreshTokens {
 	 * @return string
 	 */
 	protected function hash($client_secret, $client_id) {
-		return hash('sha256', $client_id.$client_secret.self::SALT);
+		return hash('sha256', $client_id . $client_secret . self::salt);
 	}
 
 /**

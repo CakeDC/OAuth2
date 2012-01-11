@@ -1,11 +1,11 @@
 <?php
-/* AuthCode Fixture generated on: 2012-01-11 13:37:21 : 1326285441 */
+/* Oauth2AuthCode Fixture generated on: 2012-01-11 15:56:56 : 1326293816 */
 
 /**
- * AuthCodeFixture
+ * Oauth2AuthCodeFixture
  *
  */
-class AuthCodeFixture extends CakeTestFixture {
+class Oauth2AuthCodeFixture extends CakeTestFixture {
 
 /**
  * Fields

@@ -1,5 +1,7 @@
 <?php
-class Oauth2AuthCode extends AppModel {
+App::uses('Oauth2AppModel', 'Oauth2.Model');
+
+class Oauth2AuthCode extends Oauth2AppModel {
 /**
  * Name
  *

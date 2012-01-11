@@ -16,10 +16,10 @@ class OAuth2StorageCake implements IOAuth2GrantCode, IOAuth2RefreshTokens {
 	public function __construct($options = array()) {
 		$defaults = array(
 			'models' => array(
-				'AuthCode' => 'Oauth2.Oauth2RequestToken',
+				'AuthCode' => 'Oauth2.Oauth2AuthToken',
 				'Client' => 'Oauth2.Oauth2Client',
 				'Token' => 'Oauth2.Oauth2AccessToken',
-				'RefreshToken' => 'Oauth2.RefreshToken'));
+				'RefreshToken' => 'Oauth2.Oauth2RefreshToken'));
 
 		$this->options = Set::merge($defaults, $options);
 

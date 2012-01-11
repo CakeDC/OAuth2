@@ -18,31 +18,40 @@ class OauthMigration001 extends CakeMigration {
 	var $migration = array(
 		'up' => array(
 			'create_table' => array(
-				'auth_codes' => array(
-					'code' => array('type'=>'string', 'null' => false, 'default' => NULL, 'lenght' => 40),
-					'client_id' => array('type'=>'string', 'null' => false, 'default' => NULL, 'lenght' => 20),
+				'oauth2_auth_codes' => array(
+					'id' => array('type'=>'string', 'null' => false, 'default' => NULL, 'lenght' => 40),
+					'oauth2_client_id' => array('type'=>'string', 'null' => false, 'default' => NULL, 'lenght' => 20),
 					'redirect_uri' => array('type'=>'string', 'null' => false, 'default' => NULL, 'lenght' => 200),
 					'expires' => array('type'=>'integer', 'null' => false, 'default' => NULL, 'length' => 11),
 					'scope' => array('type'=>'string', 'null' => true, 'default' => NULL, 'lenght' => 200),
-					'indexes' => array('PRIMARY' => array('column' => 'code', 'unique' => 1)),
+					'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1)),
 				),
-				'oauth_clients' => array(
+				'oauth2_clients' => array(
 					'id' => array('type'=>'string', 'null' => false, 'default' => NULL, 'lenght' => 20),
 					'secret' => array('type'=>'string', 'null' => false, 'default' => NULL, 'lenght' => 20),
 					'redirect_uri' => array('type'=>'string', 'null' => false, 'default' => NULL, 'lenght' => 200),
 					'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1)),
 				),
-				'oauth_tokens' => array(
-					'oauth_token' => array('type'=>'string', 'null' => false, 'default' => NULL, 'lenght' => 40),
-					'client_id' => array('type'=>'string', 'null' => false, 'default' => NULL, 'lenght' => 20),
+				'oauth2_access_tokens' => array(
+					'id' => array('type'=>'string', 'null' => false, 'default' => NULL, 'lenght' => 40),
+					'oauth2_client_id' => array('type'=>'string', 'null' => false, 'default' => NULL, 'lenght' => 20),
+					'user_id' => array('type'=>'string', 'null' => true, 'default' => NULL, 'length' => 36),
 					'expires' => array('type'=>'integer', 'null' => false, 'default' => NULL, 'length' => 11),
 					'scope' => array('type'=>'string', 'null' => true, 'default' => NULL, 'lenght' => 200),
-					'indexes' => array('PRIMARY' => array('column' => 'oauth_token', 'unique' => 1)),
+					'indexes' => array('PRIMARY' => array('column' => 'id',  'unique' => 1)),
+				),
+				'oauth2_refresh_tokens' => array(
+					'id' => array('type'=>'string', 'null' => false, 'default' => NULL, 'lenght' => 40),
+					'oauth2_client_id' => array('type'=>'string', 'null' => false, 'default' => NULL, 'lenght' => 20),
+					'user_id' => array('type'=>'string', 'null' => true, 'default' => NULL, 'length' => 36),
+					'expires' => array('type'=>'integer', 'null' => false, 'default' => NULL, 'length' => 11),
+					'scope' => array('type'=>'string', 'null' => true, 'default' => NULL, 'lenght' => 200),
+					'indexes' => array('PRIMARY' => array('column' => 'id',  'unique' => 1)),
 				),
 			)
 		),
 		'down' => array(
-			'drop_table' => array('auth_codes', 'oauth_clients', 'oauth_tokens')
+			'drop_table' => array('oauth2_auth_codes', 'oauth2_clients', 'oauth2_access_tokens', 'oauth2_refresh_tokens')
 		)
 	);
 /**

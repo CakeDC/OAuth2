@@ -1,8 +1,9 @@
 <?php
 require_once(CakePlugin::path('Oauth2') . 'Vendor' . DS . 'oauth2-php' . DS . 'lib' . DS . 'OAuth2.php');
 App::uses('OAuth2StorageCake', 'Oauth2.Lib');
+App::uses('Oauth2AppController', 'Oauth2.Controller');
 
-class ServerController extends AppController {
+class ServerController extends Oauth2AppController {
 /**
  * Name
  *

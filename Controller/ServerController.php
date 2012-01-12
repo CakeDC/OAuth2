@@ -29,7 +29,9 @@ class ServerController extends Oauth2AppController {
 	}
 
 /**
- * 
+ * Authorize a consumer
+ *
+ * @return void
  */
 	public function authorize() {
 		// Clickjacking prevention (supported by IE8+, FF3.6.9+, Opera10.5+, Safari4+, Chrome 4.1.249.1042+)
@@ -37,7 +39,7 @@ class ServerController extends Oauth2AppController {
 
 		if ($this->request->is('post')) {
 			$userId = 42;
-			//$this->Oauth2->finishClientAuthorization($this->request->data["accept"] == "Yep", $userId, $this->request->data);
+			$this->Oauth2->finishClientAuthorization(($this->request->data["accept"] == "Yep"), $userId, $this->request->data);
 		}
 
 		try {
@@ -51,7 +53,9 @@ class ServerController extends Oauth2AppController {
 	}
 
 /**
- * 
+ * Token
+ *
+ * @return void
  */
 	public function token() {
 		try {

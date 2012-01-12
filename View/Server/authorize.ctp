@@ -1,9 +1,11 @@
 <form method="post" action="#">
-	<?php foreach ($authParams  as $key => $value) : ?>
-		<input type="hidden"
-			name="<?php filter_var($key, FILTER_SANITIZE_FULL_SPECIAL_CHARS)?>"
-			value="<?php filter_var($value, FILTER_SANITIZE_FULL_SPECIAL_CHARS)?>" />
-	<?php endforeach; ?>
+	<?php if (!empty($authParams)) : ?>
+		<?php foreach ($authParams  as $key => $value) : ?>
+			<input type="hidden"
+				name="<?php echo filter_var($key, FILTER_SANITIZE_FULL_SPECIAL_CHARS)?>"
+				value="<?php echo filter_var($value, FILTER_SANITIZE_FULL_SPECIAL_CHARS)?>" />
+		<?php endforeach; ?>
+	<?php endif; ?>
 	<p>
 		Do you authorize the app to do its thing?
 	</p>

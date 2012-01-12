@@ -7,6 +7,6 @@ class Oauth2AccessToken extends Oauth2AppModel {
  *
  * @var string
  */
-	public $name = 'OauthToken';
+	public $name = 'Oauth2AccessToken';
 
 }

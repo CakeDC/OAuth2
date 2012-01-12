@@ -8,7 +8,7 @@ require_once($basePath . 'IOAuth2RefreshTokens.php');
 /**
  * CakePHP DBAL storage engine for the OAuth2 Library.
  */
-class OAuth2StorageCake implements IOAuth2GrantCode, IOAuth2RefreshTokens {
+class OAuth2StorageCake implements IOAuth2GrantCode, IOAuth2RefreshTokens, IOAuth2GrantImplicit {
 
 /**
  * Implements OAuth2::__construct().
@@ -96,7 +96,7 @@ class OAuth2StorageCake implements IOAuth2GrantCode, IOAuth2RefreshTokens {
 			return false;
 		}
 
-		return $result[$this->Client->alias]['redirect_uri'];
+		return array('redirect_uri' => $result[$this->Client->alias]['redirect_uri']);
 	}
 
 /**

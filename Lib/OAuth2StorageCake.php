@@ -177,12 +177,15 @@ class OAuth2StorageCake implements IOAuth2GrantCode, IOAuth2RefreshTokens, IOAut
  */
 	protected function setToken($token, $client_id, $user_id, $expires, $scope, $isRefresh = TRUE) {
 		$model = 'Token';
-		if ($isRefresh == true) {
+		if ($isRefresh) {
 			$model = 'RefreshToken';
+			$refresh_token = $token;
+		} else {
+			$oauth_token = $token;
 		}
 
 		$this->{$model}->save(array(
-			$this->{$model}->alias => compact('token', 'client_id', 'user_id', 'expires',
+			$this->{$model}->alias => compact('refresh_token', 'oauth_token', 'client_id', 'user_id', 'expires',
 				'scope')));
 	}
 
@@ -204,7 +207,7 @@ class OAuth2StorageCake implements IOAuth2GrantCode, IOAuth2RefreshTokens, IOAut
 		if (empty($result)) {
 			return null;
 		}
-		return $result[$this->AuthCode->alias];
+		return $result[$this->{$model}->alias];
 	}
 
 	/**

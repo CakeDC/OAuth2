@@ -9,4 +9,12 @@ class Oauth2AuthCode extends Oauth2AppModel {
  */
 	public $name = 'Oauth2AuthCode';
 
+/**
+ * Primary key
+ *
+ * @var string
+ */
+	public $primaryKey = 'code';
+
+ 	
 }

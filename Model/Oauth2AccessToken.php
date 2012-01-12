@@ -9,4 +9,11 @@ class Oauth2AccessToken extends Oauth2AppModel {
  */
 	public $name = 'Oauth2AccessToken';
 
+/**
+ * Primary key
+ *
+ * @var string
+ */
+	public $primaryKey = 'oauth_token';
+ 	
 }

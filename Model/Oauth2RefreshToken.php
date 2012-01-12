@@ -9,4 +9,10 @@ class Oauth2RefreshToken extends Oauth2AppModel {
  */
 	public $name = 'Oauth2RefreshToken';
 
+/**
+ * Primary key
+ *
+ * @var string
+ */
+	public $primaryKey = 'refresh_token'; 	
 }

@@ -1,7 +1,6 @@
 <?php
 	echo $this->Form->create('Oauth2Client', array(
 		'url' => array(
-			'admin' => true,
 			'controller' => 'clients',
 			'action' => 'add')));
 	echo $this->Form->input('client_id', array(

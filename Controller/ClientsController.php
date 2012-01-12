@@ -40,4 +40,14 @@ class ClientsController extends Oauth2AppController {
 		}
 	}
 
+	public function add() {
+		try {
+			if ($this->Oauth2Client->add($this->request->data)) {
+				$this->redirect(array('action' => 'index'));
+			}
+		} catch(Exception $e) {
+			$this->Session->setFlash($e->getMessage());
+		}
+	}
+
 }

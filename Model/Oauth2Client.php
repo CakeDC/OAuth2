@@ -10,6 +10,13 @@ class Oauth2Client extends Oauth2AppModel {
 	public $name = 'Oauth2Client';
 
 /**
+ * Primary key
+ *
+ * @var string
+ */
+	public $primaryKey = 'client_id';
+
+/**
  * Validation rules
  *
  * @var array

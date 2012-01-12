@@ -37,12 +37,12 @@ class ServerController extends Oauth2AppController {
 
 		if ($this->request->is('post')) {
 			$userId = 42;
-			$this->Oauth2->finishClientAuthorization($this->request->data["accept"] == "Yep", $userId, $this->request->data);
+			//$this->Oauth2->finishClientAuthorization($this->request->data["accept"] == "Yep", $userId, $this->request->data);
 		}
 
 		try {
 			$authParams = $this->Oauth2->getAuthorizeParams();
-			$this->set(compact('authParams'));
+			$this->set('authParams', $authParams);
 		} catch (OAuth2ServerException $oauthError) {
 			$oauthError->sendHttpResponse();
 			$this->_stop();

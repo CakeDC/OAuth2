@@ -59,7 +59,7 @@ class OAuth2StorageCake implements IOAuth2GrantCode, IOAuth2RefreshTokens {
 	public function addClient($client_id, $client_secret, $redirect_uri) {
 		$this->Client->save(array(
 			$this->Client->alias => array(
-				'id' => $client_id,
+				'client_id' => $client_id,
 				'client_secret' > $client_secret,
 				'redirect_uri' => $redirect_uri)));
 	}
@@ -72,7 +72,7 @@ class OAuth2StorageCake implements IOAuth2GrantCode, IOAuth2RefreshTokens {
 		$result = $this->Client->find('first', array(
 			'contain' => array(),
 			'conditions' => array(
-				$this->Client->alias . '.id' => $client_id),
+				$this->Client->alias . '.' . $this->primaryKey => $client_id),
 			'fields' => array($this->Client->alias . '.secret')));
 
 		if (empty($result)) {
@@ -89,7 +89,7 @@ class OAuth2StorageCake implements IOAuth2GrantCode, IOAuth2RefreshTokens {
 		$result = $this->Client->find('first', array(
 			'contain' => array(),
 			'conditions' => array(
-				$this->Client->alias . '.id' => $client_id),
+				$this->Client->alias . '.' . $this->Client->primaryKey => $client_id),
 			'fields' => array($this->Client->alias . '.redirect_uri')));
 
 		if (empty($result)) {

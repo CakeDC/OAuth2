@@ -60,7 +60,7 @@ class Oauth2Component extends Component {
  */
 	public function getOauthInstance() {
 		if ($this->settings['storage'] == 'OAuth2StorageCake') {
-			App::uses('OAuth2StorageCake', 'Oauth2.Lib');
+			App::uses('OAuth2StorageCake', 'Oauth2.Lib/Oauth2');
 		}
 		$this->Storage = new $this->settings['storage'];
 		$this->Oauth2 = new OAuth2($this->Storage);

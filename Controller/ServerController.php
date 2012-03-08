@@ -26,6 +26,7 @@ class ServerController extends Oauth2AppController {
 		if (isset($this->Auth)) {
 			$this->Auth->allow('*');
 		}
+		$this->Components->disable('Security');
 	}
 
 /**
@@ -37,6 +38,7 @@ class ServerController extends Oauth2AppController {
 		// Clickjacking prevention (supported by IE8+, FF3.6.9+, Opera10.5+, Safari4+, Chrome 4.1.249.1042+)
 		header('X-Frame-Options: DENY');
 
+		/*
 		if ($this->request->is('post')) {
 			$userId = 42;
 			$this->Oauth2->finishClientAuthorization(($this->request->data["accept"] == "Yep"), $userId, $this->request->data);
@@ -49,7 +51,18 @@ class ServerController extends Oauth2AppController {
 			$oauthError->sendHttpResponse();
 			$this->_stop();
 		}
-
+		*/
+		if (isset($this->request->data['grant_type'])) {
+			switch ($this->request->data) {
+				case:
+					
+					break;
+				default:
+					$this->checkUserCredentials
+					break;
+			}
+		}
+		//die(debug($this->request->data));
 	}
 
 /**

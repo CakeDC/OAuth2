@@ -40,6 +40,11 @@ class ClientsController extends Oauth2AppController {
 		}
 	}
 
+/**
+ * Adds a new client
+ *
+ * @return void
+ */
 	public function add() {
 		try {
 			if ($this->Oauth2Client->add($this->request->data)) {

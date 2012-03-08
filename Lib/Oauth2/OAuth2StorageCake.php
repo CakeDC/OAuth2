@@ -3,6 +3,7 @@ $basePath = CakePlugin::path('Oauth2') . 'Vendor' . DS .  'oauth2-php' . DS . 'l
 require_once($basePath . 'Oauth2.php');
 require_once($basePath . 'IOAuth2Storage.php');
 require_once($basePath . 'IOAuth2GrantCode.php');
+require_once($basePath . 'IOAuth2GrantUser.php');
 require_once($basePath . 'IOAuth2RefreshTokens.php');
 
 /**
@@ -62,6 +63,29 @@ class OAuth2StorageCake implements IOAuth2GrantCode, IOAuth2RefreshTokens, IOAut
 				'client_id' => $client_id,
 				'client_secret' > $client_secret,
 				'redirect_uri' => $redirect_uri)));
+	}
+
+/**
+ * Implements IOAuth2Storage::checkClientCredentials().
+ *
+ */
+	public function checkUserCredentials($client_id, $username, $password) {
+		$result = $this->Client->find('first', array(
+			'contain' => array(),
+			'conditions' => array(
+					$this->Client->alias . '.' . $this->primaryKey => $client_id),
+			'fields' => array($this->Client->alias . '.secret')));
+
+		$user = $this->User->find('first', array(
+			'contain' => array(),
+			'conditions' => array(
+				'username' => $username,
+				'password' => Security::hash($password, 'sha1', true))));
+
+		if (empty($result)) {
+			return false;
+		}
+		return true;
 	}
 
 /**
@@ -177,15 +201,12 @@ class OAuth2StorageCake implements IOAuth2GrantCode, IOAuth2RefreshTokens, IOAut
  */
 	protected function setToken($token, $client_id, $user_id, $expires, $scope, $isRefresh = TRUE) {
 		$model = 'Token';
-		if ($isRefresh) {
+		if ($isRefresh == true) {
 			$model = 'RefreshToken';
-			$refresh_token = $token;
-		} else {
-			$oauth_token = $token;
 		}
 
 		$this->{$model}->save(array(
-			$this->{$model}->alias => compact('refresh_token', 'oauth_token', 'client_id', 'user_id', 'expires',
+			$this->{$model}->alias => compact('token', 'client_id', 'user_id', 'expires',
 				'scope')));
 	}
 
@@ -207,7 +228,7 @@ class OAuth2StorageCake implements IOAuth2GrantCode, IOAuth2RefreshTokens, IOAut
 		if (empty($result)) {
 			return null;
 		}
-		return $result[$this->{$model}->alias];
+		return $result[$this->AuthCode->alias];
 	}
 
 	/**
@@ -230,5 +251,5 @@ class OAuth2StorageCake implements IOAuth2GrantCode, IOAuth2RefreshTokens, IOAut
  */
 	protected function checkPassword($try, $client_secret, $client_id) {
 		return $try == $this->hash($client_secret, $client_id);
-	 }
+	}
 }
